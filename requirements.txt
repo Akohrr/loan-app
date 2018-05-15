@@ -1,0 +1,8 @@
+Package              Version
+-------------------- -------
+Django               1.11   
+django-widget-tweaks 1.4.2  
+pip                  10.0.1 
+pytz                 2018.4 
+setuptools           39.1.0 
+wheel                0.31.1 

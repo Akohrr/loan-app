@@ -1,0 +1,78 @@
+
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+
+
+
+<p>Welcome to my dashboard</p>
+
+<div class="">
+        <h2>Loans</h2>
+      
+        <table class="w3-table w3-section w3-striped">
+          <tr>
+            <th>#</th>
+            <th>Loan Amount</th>
+            <th>Status</th>
+            <th>Guarantor</th>
+            <th>Date of Request</th>
+          </tr>
+          {% for loan in loans %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ loan.amount }}</td>
+            <td>{{ loan.status }}</td>
+            <td>{{ loan.guarantor.user.first_name }} {{ loan.guarantor.user.last_name }}</td>
+            <td>{{ loan.date_of_request }}</td>
+          </tr>
+          {% empty %}
+          <tbody>
+              <tr>
+                  <td colspan="5" class="w3-grey w3-center">It seems you have not requested any loan yet. Feel free to take a loan when you need one</td>
+              </tr>
+          </tbody>
+          {% endfor %}
+          
+          
+        </table>
+      </div>
+
+      <button id="new-loan-btn" class="w3-button w3-black">New Loan</button>
+
+
+    <div id="new-loan-modal" class="w3-modal">
+        <div class="w3-modal-content">
+                <header class="w3-container w3-teal"> 
+                        
+                        <h2>Request For New Loan</h2>
+                      </header>
+            <div class="w3-container">
+                <span id="close-new-loan-modal" class="w3-button w3-display-topright">&times;</span>
+            <div class="w3-section">
+                <form method="post" id="new-loan-form" novalidate>
+            
+                    {% csrf_token %}
+                                
+                    <div class="form-data">
+                        
+                        {% include "includes/form.html" %}
+                        
+                    </div>
+                            
+                    <button class="w3-button w3-round-large w3-section w3-red">Submit</button>
+                </form>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block javascript %}
+    <script src="{% static 'account/js/main.js' %}"></script>
+{% endblock javascript %}
